@@ -1,0 +1,54 @@
+// To get started, press Ctrl+Space (or Option+Esc) to bring up the completion menu and view the available nodes.
+
+// You can also use the buttons in the sidebar to perform actions on nodes.
+// Actions currently available include:
+
+// * Enabling / disabling the node
+// * Adding the bus to a bus
+// * Removing the node
+// * Connecting ADC channels
+
+// For more help, browse the DeviceTree documentation at https://docs.zephyrproject.org/latest/guides/dts/index.html
+// You can also visit the nRF DeviceTree extension documentation at https://nrfconnect.github.io/vscode-nrf-connect/devicetree/nrfdevicetree.html
+
+#include <zephyr/dt-bindings/led/led.h>
+
+/ {
+	aliases {
+		led-1 = &led1;
+        led-2 = &led2;
+        als0 = &tsl2591;
+        accel0 = &lis2dh;
+	};
+
+    leds {
+		compatible = "gpio-leds";
+		led1: ld3 {
+			gpios = <&gpioc 4 GPIO_ACTIVE_HIGH>;
+			label = "LED 1";
+		};
+        led2: ld4 {
+            gpios = <&gpioc 5 GPIO_ACTIVE_HIGH>;
+            label = "LED 2";
+        };
+	};
+};
+
+&i2c3 {
+	/* LIS2DH accelerometer */
+	lis2dh: lis2dh@19 {
+		compatible = "st,lis2dh";
+		reg = <0x19>;
+		status = "okay";
+	};
+};
+
+&i2c2 {
+    /* TSL2591 Ambient Light Sensor */
+	tsl2591: tsl2591@29 {
+		compatible = "ams,tsl2591";
+		reg = <0x29>;
+		status = "okay";
+		int-gpios = <&gpiob 15 (GPIO_PULL_UP | GPIO_ACTIVE_LOW)>;
+	};	
+};

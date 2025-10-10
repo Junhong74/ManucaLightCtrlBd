@@ -32,7 +32,7 @@ static struct led_spec right_led = {
     .led_on = false,
 };
 
-blink_mode_t led_mode;
+led_mode_t led_mode;
 
 /**
  * @brief Blink timer callback function
@@ -43,9 +43,9 @@ blink_mode_t led_mode;
  */
 static void blink_timer_fn(struct k_timer *timer_id)
 {
-    struct blinker *bl = CONTAINER_OF(timer_id, struct blinker, blink_timer);
-    bl->led_on = !bl->led_on;
-    gpio_pin_set_dt(bl->led, bl->led_on);
+    struct led_spec *ld = CONTAINER_OF(timer_id, struct led_spec, blink_timer);
+    ld->led_on = !ld->led_on;
+    gpio_pin_set_dt(ld->led, ld->led_on);
 }
 
 /**
@@ -57,10 +57,10 @@ static void blink_timer_fn(struct k_timer *timer_id)
  */
 static void duration_timer_fn(struct k_timer *timer_id)
 {
-    struct led *led = CONTAINER_OF(timer_id, struct led, duration_timer);
-    k_timer_stop(&led->blink_timer);
-    led->blinking = false;
-    gpio_pin_set_dt(led->led, 0); // Turn off LED
+    struct led_spec *ld = CONTAINER_OF(timer_id, struct led_spec, duration_timer);
+    k_timer_stop(&ld->blink_timer);
+    ld->blinking = false;
+    gpio_pin_set_dt(ld->led, 0); // Turn off LED
 }
 
 /**
@@ -83,8 +83,8 @@ static int8_t led_ctrl_left(led_event_t event)
         return 0; // Success
     }
     else if (event == ON) {
-        left_blinker.blinking = true;
-        left_blinker.led_on = true;
+        left_led.blinking = true;
+        left_led.led_on = true;
         gpio_pin_set_dt(left_led.led, 1); // Turn on LED
         k_timer_start(&left_led.blink_timer, K_MSEC(BLINK_PERIOD_MS), K_MSEC(BLINK_PERIOD_MS));
         k_timer_stop(&left_led.duration_timer);
@@ -230,7 +230,7 @@ int8_t led_ctrl_init(void)
     led_ctrl_left(OFF);
     led_ctrl_right(OFF);
 
-    led_mode = BLINKER_OFF;
+    led_mode = LED_OFF;
 
     return 0;
 } 
@@ -244,7 +244,7 @@ int8_t led_ctrl_init(void)
 int8_t led_ctrl_set_mode(led_mode_t mode)
 {
     static bool blinking_active = false;
-    static led_mode_t prev_mode = BLINKER_OFF;
+    static led_mode_t prev_mode = LED_OFF;
 
     led_mode = mode;
 
@@ -276,7 +276,7 @@ int8_t led_ctrl_set_mode(led_mode_t mode)
             break;
         case HAZARD_BLINK:
             // Toggle hazard blinkers
-            if (prev_mode != LED_MODE_HAZARD) {
+            if (prev_mode != HAZARD_BLINK) {
                 blinking_active = true; // Reset blinking state
             }
             else

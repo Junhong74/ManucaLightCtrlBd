@@ -18,8 +18,8 @@ typedef enum {
     OFF,
 } led_event_t;
 
-int8_t led_ctrl_init(void);
-int8_t led_ctrl_set_mode(led_mode_t mode);
-int8_t led_ctrl_get_mode(led_mode_t *mode);
+int led_ctrl_init(void);
+int led_ctrl_set_mode(led_mode_t mode);
+int led_ctrl_get_mode(led_mode_t *mode);
 
 #endif // LED_CTRL_H

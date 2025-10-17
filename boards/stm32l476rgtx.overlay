@@ -17,8 +17,6 @@
 	aliases {
 		led-1 = &led1;
         led-2 = &led2;
-        als0 = &tsl2591;
-        accel0 = &lis2dh;
 	};
 
     leds {
@@ -32,23 +30,15 @@
             label = "LED 2";
         };
 	};
+
+	chosen {
+        zephyr,console = &usart2;
+    };
 };
 
-&i2c3 {
-	/* LIS2DH accelerometer */
-	lis2dh: lis2dh@19 {
-		compatible = "st,lis2dh";
-		reg = <0x19>;
-		status = "okay";
-	};
-};
-
-&i2c2 {
-    /* TSL2591 Ambient Light Sensor */
-	tsl2591: tsl2591@29 {
-		compatible = "ams,tsl2591";
-		reg = <0x29>;
-		status = "okay";
-		int-gpios = <&gpiob 15 (GPIO_PULL_UP | GPIO_ACTIVE_LOW)>;
-	};	
+&usart2 {
+	pinctrl-0 = <&usart2_tx_pa2 &usart2_rx_pa3>;
+	pinctrl-names = "default";
+	current-speed = <115200>;
+	status = "okay";
 };

@@ -1,6 +1,7 @@
 #ifndef LED_CTRL_H
 #define LED_CTRL_H
 
+#include <stdint.h>
 
 typedef enum {
 	LED_OFF = 0U,

@@ -192,7 +192,7 @@ static int8_t led_ctrl_hazard(led_event_t event)
  */
 int8_t led_ctrl_init(void)
 {
-    uint8_t ret;
+    int ret;
 
     if (!gpio_is_ready_dt(left_led.led)) {
         LOG_ERR("LED device %s is not ready", left_led.led->port->name);

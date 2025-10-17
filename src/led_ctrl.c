@@ -37,7 +37,7 @@ static struct led_spec right_led = {
     .led_on = false,
 };
 
-led_mode_t led_mode;
+static led_mode_t led_mode;
 
 /**
  * @brief Blink timer callback function

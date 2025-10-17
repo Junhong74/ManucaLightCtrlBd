@@ -1,10 +1,6 @@
 #ifndef LED_CTRL_H
 #define LED_CTRL_H
 
-#include <zephyr/device.h>
-#include <zephyr/drivers/gpio.h>
-#include <zephyr/sys/util.h>        
-#include <zephyr/sys/printk.h>
 
 typedef enum {
 	LED_OFF = 0U,

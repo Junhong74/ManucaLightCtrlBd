@@ -172,17 +172,18 @@ static int8_t led_ctrl_right(led_event_t event)
  */
 static int8_t led_ctrl_hazard(led_event_t event)
 {
+    int8_t err = 0;
     if (event == OFF) {
-        led_ctrl_left(OFF);
-        led_ctrl_right(OFF);
+        err = led_ctrl_left(OFF);
+        err |= led_ctrl_right(OFF);
         LOG_INF("HAZARD LED OFF");
     }
     else {
-        led_ctrl_left(ON);
-        led_ctrl_right(ON);
+        err = led_ctrl_left(ON);
+        err |= led_ctrl_right(ON);
         LOG_INF("HAZARD blinker ON");
     }
-    return 0; // Success
+    return err ? err : 0;
 }
 
 /**

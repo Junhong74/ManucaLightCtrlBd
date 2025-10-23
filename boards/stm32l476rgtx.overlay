@@ -43,7 +43,12 @@
 	status = "okay";
 };
 
-&i2c1 {
+&i2c2 {
+	pinctrl-0 = <&i2c2_scl_pb13 &i2c2_sda_pb14>;
+	pinctrl-names = "default";
+	status = "okay";
+	clock-frequency = <I2C_BITRATE_FAST>;
+
 	/* TSL2591 Ambient Light Sensor */
 	tsl2591: tsl2591@29 {
 		compatible = "ams,tsl2591";

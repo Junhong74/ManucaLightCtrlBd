@@ -42,3 +42,13 @@
 	current-speed = <115200>;
 	status = "okay";
 };
+
+&i2c1 {
+	/* TSL2591 Ambient Light Sensor */
+	tsl2591: tsl2591@29 {
+		compatible = "ams,tsl2591";
+		reg = <0x29>;
+		status = "okay";
+		//int-gpios = <&gpioa 15 (GPIO_PULL_UP | GPIO_ACTIVE_LOW)>;
+	};	
+};

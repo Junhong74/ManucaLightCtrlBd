@@ -1,5 +1,5 @@
-#ifndef LED_CTRL_H
-#define LED_CTRL_H
+#ifndef LED_CTRL_H_
+#define LED_CTRL_H_
 
 #include <stdint.h>
 
@@ -19,8 +19,8 @@ typedef enum {
     OFF,
 } led_event_t;
 
-int led_ctrl_init(void);
-int led_ctrl_set_mode(led_mode_t mode);
-int led_ctrl_get_mode(led_mode_t *mode);
+int16_t led_ctrl_init(void);
+int16_t led_ctrl_set_mode(led_mode_t mode);
+int16_t led_ctrl_get_mode(led_mode_t *mode);
 
-#endif // LED_CTRL_H
+#endif // LED_CTRL_H_

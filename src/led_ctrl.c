@@ -76,7 +76,7 @@ static void duration_timer_fn(struct k_timer *timer_id)
  * @param event The blink event
  * @return 0 on success, or a negative error code on failure
  */
-static int led_ctrl_left(led_event_t event)
+static int16_t led_ctrl_left(led_event_t event)
 {
     if (event == OFF) {
         k_timer_stop(&left_led.blink_timer);
@@ -123,7 +123,7 @@ static int led_ctrl_left(led_event_t event)
  * @param event The blink event
  * @return 0 on success, or a negative error code on failure
  */
-static int led_ctrl_right(led_event_t event)
+static int16_t led_ctrl_right(led_event_t event)
 {
     if (event == OFF) {
         k_timer_stop(&right_led.blink_timer);
@@ -170,7 +170,7 @@ static int led_ctrl_right(led_event_t event)
  * @param event The blink event
  * @return 0 on success, or a negative error code on failure
  */
-static int led_ctrl_hazard(led_event_t event)
+static int16_t led_ctrl_hazard(led_event_t event)
 {
     int8_t err = 0;
     if (event == OFF) {
@@ -191,9 +191,9 @@ static int led_ctrl_hazard(led_event_t event)
  *
  * @return 0 on success, or a negative error code on failure
  */
-int led_ctrl_init(void)
+int16_t led_ctrl_init(void)
 {
-    int ret;
+    int16_t ret;
 
     if (!gpio_is_ready_dt(left_led.led)) {
         LOG_ERR("LED device %s is not ready", left_led.led->port->name);
@@ -247,7 +247,7 @@ int led_ctrl_init(void)
  * @param mode The blink mode to set
  * @return 0 on success, or a negative error code on failure
  */
-int led_ctrl_set_mode(led_mode_t mode)
+int16_t led_ctrl_set_mode(led_mode_t mode)
 {
     static bool blinking_active = false;
     static led_mode_t prev_mode = LED_OFF;
@@ -313,7 +313,7 @@ int led_ctrl_set_mode(led_mode_t mode)
  * @param mode Pointer to the variable to store the current blink mode
  * @return 0 on success, or a negative error code on failure    
  */
-int led_ctrl_get_mode(led_mode_t *mode)
+int16_t led_ctrl_get_mode(led_mode_t *mode)
 {
     if (mode == NULL) {
         return -EINVAL; // Invalid argument

@@ -1,3 +1,4 @@
 {
+    "C_Cpp.default.compileCommands": "${workspaceFolder}/build*/compile_commands.json",
     "sonarlint.pathToCompileCommands": "${workspaceFolder}/build_l476\\compile_commands.json"
 }
